@@ -1,0 +1,30 @@
+name: CI tests for Lab4
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install dependencies and build in lab4
+        run: |
+          cd lab4
+          cargo build --release
+
+      - name: Run tests in lab4
+        run: |
+          cd lab4
+          cargo test --verbose
