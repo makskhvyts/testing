@@ -50,4 +50,24 @@ function getGenerations(field, generations) {
     return currentField;
 }
 
-module.exports = { createField, getNextCellStateWithToroidalBorders, getNextGeneration, getGenerations };
+function countAliveCells(field) {
+    return field.flat().filter(cell => cell === 'x').length;
+}
+
+function analyzeGameDynamics(initialField, generations) {
+    let currentField = initialField;
+    let stableGeneration = -1;
+
+    for (let gen = 0; gen < generations; gen++) {
+        const nextField = getNextGeneration(currentField);
+        if (JSON.stringify(nextField) === JSON.stringify(currentField)) {
+            stableGeneration = gen + 1;
+            break;
+        }
+        currentField = nextField;
+    }
+
+    return stableGeneration === -1 ? generations : stableGeneration;
+}
+
+module.exports = { createField, getNextCellStateWithToroidalBorders, getNextGeneration, getGenerations, countAliveCells, analyzeGameDynamics };
