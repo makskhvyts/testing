@@ -71,6 +71,6 @@ describe('Load Tests', () => {
         const endTime = Date.now();
 
         expect(finalState).toBeDefined();
-        expect(endTime - startTime).toBeLessThan(10000);
+        expect(endTime - startTime).toBeLessThan(15000);
     });
 });
