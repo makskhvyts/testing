@@ -1,0 +1,14 @@
+Example 1: 5 + 3 = 8
+Example 2: 10 - 2 = 8
+Example 3: 16 sqrt = 4
+Example 4: 100 log = 2
+Example 5: 45 sin = 0.8509035245341184
+Example 6: 0 cos = 1
+Example 7: 1 2 3 4 5 avg = 3
+Example 8: 7 2 5 3 8 min = 2
+Example 9: 7 2 5 3 8 max = 8
+Example 10: 1 2 3 4 5 med = 3
+Example 11: 10 + 5 = 15
+Example 12: 20 * 4 = 80
+Example 13: 8 / 0 = Error: Division by zero
+Example 14: 10 - = 10
