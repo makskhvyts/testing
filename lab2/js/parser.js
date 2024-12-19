@@ -5,51 +5,43 @@ const parse = (input) => {
 
   const keys = input.trim().split(' ');
 
-  const validKeys = /^[0-9]+$|^[+\-*/=]$/;
+  const validKeys = /^[0-9]+$|^[+\-*/=]|^(sqrt|log|sin|cos|avg|min|max|med)$/;
   let lastWasOperator = false;
   let foundEqualSign = false;
-  let operatorCount = 0; 
-  let equalSignCount = 0; 
+  let operatorCount = 0;
+  let equalSignCount = 0;
 
   for (const key of keys) {
-    if (key.length > 1) {
-      throw new Error('Incorrect input format. Make sure each character or number is separated by spaces.');
-    };
     if (!validKeys.test(key)) {
       throw new Error('Invalid character detected.');
-    };
-    if (!/^\d+$/.test(keys[0])) {
-      throw new Error('There must be a number at the beginning of the line.');
-    };
+    }
+
     if (/^[+\-*/]$/.test(key)) {
-      if (lastWasOperator) {
-        throw new Error('Two operators cannot go in a row.');
-      };
       operatorCount += 1;
-      if (operatorCount > 1) {
-        throw new Error('There can only be one arithmetic operator per line.');
-      };
-      if (foundEqualSign) {
-        throw new Error('No arithmetic operators are allowed after the "=" sign.');
-      };
+      if (operatorCount > 1 || foundEqualSign) {
+        throw new Error('Invalid operator usage.');
+      }
+      if (lastWasOperator) {
+        throw new Error('Operator cannot follow another operator.');
+      }
       lastWasOperator = true;
     } else if (key === '=') {
-      if (lastWasOperator) {
-        throw new Error('The operator and the "=" sign cannot appear consecutively.');
-      };
       equalSignCount += 1;
-      if (equalSignCount > 1) {
-        throw new Error('There can only be one equal sign per line.');
-      };
       foundEqualSign = true;
       lastWasOperator = false;
     } else {
-      if (foundEqualSign) {
-        throw new Error('No numbers are allowed after the "=" sign.');
-      };
       lastWasOperator = false;
-    };
-  };
+    }
+  }
+
+  if (!foundEqualSign) {
+    throw new Error('Missing "=" in the expression.');
+  }
+
+  if (equalSignCount > 1) {
+    throw new Error('Multiple "=" signs are not allowed.');
+  }
+
   return keys;
 };
 
