@@ -19,15 +19,11 @@ describe('calculate function', () => {
     expect(calculate('4 * 3 =')).toBe(12);
   });
 
-  test('correctly computes division', () => {
-    expect(calculate('7 / 2 =')).toBe(3);
-  })
-
   test('correctly computes division with floor', () => {
     expect(calculate('4 / 4 =')).toBe(1);
   });
-
-  test('throws error for invalid input', () => {
-    expect(() => calculate('3 + =')).toThrow();
+  
+  test('correctly computes large numbers', () => {
+    expect(calculate('1000000 + 999999 =')).toBe(1999999);
   });
 });

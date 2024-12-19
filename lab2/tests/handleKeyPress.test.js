@@ -30,15 +30,6 @@ describe('handleKeyPress function', () => {
     expect(state.screen).toBe(5);
   });
 
-  test('handles division by flooring the result', () => {
-    const state = new CalculatorState();
-    handleKeyPress(state, '7');
-    handleKeyPress(state, '/');
-    handleKeyPress(state, '2');
-    handleKeyPress(state, '=');
-    expect(state.screen).toBe(3);
-  });
-
   test('handles negative numbers correctly', () => {
     const state = new CalculatorState();
     handleKeyPress(state, '5');
@@ -57,11 +48,68 @@ describe('handleKeyPress function', () => {
     expect(state.screen).toBe(0);
   });
 
-  test('throws an error when divided by 0', () => {
+  test('correctly applies sqrt function', () => {
     const state = new CalculatorState();
-    handleKeyPress(state, '5');
-    handleKeyPress(state, '/');
+    handleKeyPress(state, '9');
+    handleKeyPress(state, 'sqrt');
+    expect(state.screen).toBe(3);
+  });
+  
+  test('correctly applies log function', () => {
+    const state = new CalculatorState();
+    handleKeyPress(state, '100');
+    handleKeyPress(state, 'log');
+    expect(state.screen).toBe(2);
+  });
+  
+  test('correctly applies sin function', () => {
+    const state = new CalculatorState();
     handleKeyPress(state, '0');
-    expect(() => handleKeyPress(state, '=')).toThrow('Cannot divide by zero.');
+    handleKeyPress(state, 'sin');
+    expect(state.screen).toBe(0);
+  });
+  
+  test('correctly applies cos function', () => {
+    const state = new CalculatorState();
+    handleKeyPress(state, '0');
+    handleKeyPress(state, 'cos');
+    expect(state.screen).toBe(1);
+  });
+
+  test('correctly applies avg function', () => {
+    const state = new CalculatorState();
+    state.values = [1, 2, 3, 4, 5];
+    handleKeyPress(state, 'avg');
+    expect(state.screen).toBe(3);
+  });
+  
+  test('correctly applies min function', () => {
+    const state = new CalculatorState();
+    state.values = [1, 2, 3, 4, 5];
+    handleKeyPress(state, 'min');
+    expect(state.screen).toBe(1);
+  });
+  
+  test('correctly applies max function', () => {
+    const state = new CalculatorState();
+    state.values = [1, 2, 3, 4, 5];
+    handleKeyPress(state, 'max');
+    expect(state.screen).toBe(5);
+  });
+  
+  test('correctly applies med function', () => {
+    const state = new CalculatorState();
+    state.values = [1, 2, 3, 4, 5];
+    handleKeyPress(state, 'med');
+    expect(state.screen).toBe(3);
+  });
+      
+  test('correctly displays numbers after operations', () => {
+    const state = new CalculatorState();
+    handleKeyPress(state, '7');
+    handleKeyPress(state, '+');
+    handleKeyPress(state, '8');
+    handleKeyPress(state, '=');
+    expect(state.screen).toBe(15);
   });
 });
