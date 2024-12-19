@@ -45,6 +45,7 @@ impl GameField {
         }
     }
 
+    #[allow(dead_code)]
     pub fn drop_figure_final(&mut self, output: &mut String) {
         loop {
             let mut new_figure = Vec::new();
