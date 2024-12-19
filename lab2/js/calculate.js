@@ -9,8 +9,9 @@ const calculate = (input) => {
   const state = new CalculatorState();
 
   for (const key of keys) {
+    if (!isNaN(key)) state.addValue(parseFloat(key));
     handleKeyPress(state, key);
-  };
+  }
 
   return state.screen;
 };
